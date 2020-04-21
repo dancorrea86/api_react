@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import App from '../App'
 import axios from 'axios'
 
 class PostForm extends Component {
@@ -13,11 +14,13 @@ class PostForm extends Component {
     }
 
     changeHandler = (e) => {
-        this.setState({ [e.target.name] : [e.target.value] })
+        App.setState({ [e.target.name] : [e.target.value] })
+        App.renderTable();
     }
 
     submitHandler = (e) => {
         e.preventDefault()
+        App.renderTable()
         console.log(this.state)
         axios
             .post('/post', this.state)
@@ -29,7 +32,7 @@ class PostForm extends Component {
             })
     }
 
-    render() {
+    renderTable() {
         const { userId, title, body } = this.state
         return (
             <div>
